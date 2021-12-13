@@ -1,14 +1,12 @@
 require('dotenv').config();
 const TelegramApi = require('node-telegram-bot-api')
-const {gameOptions, againOptions} = require('./options')
+const {opt} = require('./options')
 const sequelize = require('./db');
 const UserModel = require('./models');
 
 const token = '5042656097:AAEem7gBsoDcBJA6lPVBiptdqwEjbHB8AdM';
 
 const bot = new TelegramApi(token, {polling: true})
-
-const chats = {}
 
 const start = async () => {
 
@@ -23,7 +21,6 @@ const start = async () => {
     bot.on('message', async msg => {
         const text = msg.text;
         const chatId = msg.chat.id+'';
-
         try {
             
             if (text.toLowerCase().indexOf('пук') !== -1) {
