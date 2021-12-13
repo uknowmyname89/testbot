@@ -10,15 +10,6 @@ const bot = new TelegramApi(token, {polling: true})
 
 const chats = {}
 
-
-
-const startGame = async (chatId) => {
-    await bot.sendMessage(chatId, `Сейчас я загадаю цифру от 0 до 9, а ты должен ее угадать!`);
-    const randomNumber = Math.floor(Math.random() * 10)
-    chats[chatId] = randomNumber;
-    await bot.sendMessage(chatId, 'Отгадывай', gameOptions);
-}
-
 const start = async () => {
 
     try {
@@ -28,9 +19,6 @@ const start = async () => {
         console.log('Подключение к бд сломалось', e)
     }
 
-//    bot.setMyCommands([
-  //      {command: '/test', description: '123'},
-    //])
 
     bot.on('message', async msg => {
         const text = msg.text;
@@ -51,7 +39,7 @@ const start = async () => {
                 await bot.sendSticker(chatId, 'https://cdn.tlgrm.app/stickers/017/d6b/017d6b47-23c3-4067-8a4d-dd047b69f1b0/192/8.webp');
 
                 user.puks += 1;
-                await bot.sendMessage(chatId, `Это ${user.puks} пук`, againOptions);
+                await bot.sendMessage(chatId, `Это ${user.puks} пук`, opt);
                 await user.save();
             } else {
                 return bot.sendMessage(chatId, `Пукай`);
